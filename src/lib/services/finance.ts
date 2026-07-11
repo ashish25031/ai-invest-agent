@@ -26,8 +26,8 @@ export async function getFinancialData(ticker: string) {
         if (searchResults.quotes && searchResults.quotes.length > 0) {
           // Grab the most relevant equity ticker
           const bestMatch = searchResults.quotes.find(q => q.quoteType === 'EQUITY') || searchResults.quotes[0];
-          if (bestMatch && bestMatch.symbol) {
-            searchTicker = bestMatch.symbol;
+          if (bestMatch && 'symbol' in bestMatch) {
+            searchTicker = (bestMatch as any).symbol as string;
             logger.info(`Resolved query "${ticker}" to ticker symbol: ${searchTicker}`);
           }
         }
