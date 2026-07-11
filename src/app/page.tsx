@@ -12,19 +12,26 @@ export default function Home() {
   const { state, isExecuting, error, startResearch, reset } = useResearchWorkflow();
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-indigo-500/30">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] -z-10 opacity-20 pointer-events-none" />
-      <div className="absolute top-0 left-0 right-0 h-[500px] bg-indigo-500/10 blur-[100px] -z-10 rounded-full mix-blend-screen pointer-events-none" />
+    <main className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-indigo-500/30 overflow-hidden relative">
+      {/* Animated Mesh Gradient Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/20 blur-[120px] animate-blob mix-blend-screen" />
+        <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-violet-600/20 blur-[120px] animate-blob animation-delay-2000 mix-blend-screen" />
+        <div className="absolute bottom-[-20%] left-[20%] w-[60%] h-[60%] rounded-full bg-fuchsia-600/10 blur-[120px] animate-blob animation-delay-4000 mix-blend-screen" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-[0.03]" />
+      </div>
 
-      <div className="container mx-auto px-4 py-8 md:py-12 relative">
+      <div className="container mx-auto px-4 py-8 md:py-12 relative z-10">
         
         {/* Header / Nav */}
         <header className="flex items-center justify-between mb-16">
-          <div className="flex items-center gap-2">
-             <div className="h-8 w-8 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
+          <div className="flex items-center gap-3">
+             <div className="h-10 w-10 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center font-heading font-bold text-white shadow-lg shadow-indigo-500/25 border border-white/10">
                AI
              </div>
-             <span className="text-xl font-medium tracking-tight">InvestAgent</span>
+             <span className="text-2xl font-heading font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400">
+               InvestAgent
+             </span>
           </div>
           {Object.keys(state).length > 0 && !isExecuting && (
             <Button variant="ghost" onClick={reset} className="text-zinc-400 hover:text-white">

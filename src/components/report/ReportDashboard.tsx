@@ -20,18 +20,19 @@ export function ReportDashboard({ state }: ReportDashboardProps) {
   const isInvest = decision.recommendation === "INVEST";
 
   return (
-    <div className="max-w-6xl mx-auto mt-8 space-y-6 pb-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="max-w-7xl mx-auto mt-8 space-y-8 pb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000 relative z-10">
       
       {/* Header & Decision Overview */}
-      <Card className="bg-zinc-900 border-zinc-800 overflow-hidden relative">
-        <div className={`absolute top-0 left-0 w-1 h-full ${isInvest ? 'bg-emerald-500' : 'bg-rose-500'}`} />
+      <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 overflow-hidden relative shadow-2xl shadow-black/50 group">
+        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        <div className={`absolute top-0 left-0 w-1.5 h-full ${isInvest ? 'bg-gradient-to-b from-emerald-400 to-emerald-600' : 'bg-gradient-to-b from-rose-400 to-rose-600'} shadow-[0_0_20px_rgba(0,0,0,0.5)]`} />
         <CardHeader className="pb-4">
-          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
             <div>
               <div className="flex items-center gap-3">
-                <CardTitle className="text-4xl font-bold">{companyInfo?.name || state.companyName}</CardTitle>
+                <CardTitle className="text-4xl md:text-5xl font-heading font-semibold tracking-tight">{companyInfo?.name || state.companyName}</CardTitle>
                 {companyInfo?.ticker && (
-                  <Badge variant="outline" className="text-lg bg-zinc-800 text-zinc-300">
+                  <Badge variant="outline" className="text-lg font-mono bg-white/5 border-white/10 text-zinc-300 px-3 py-1">
                     {companyInfo.ticker}
                   </Badge>
                 )}
@@ -43,15 +44,18 @@ export function ReportDashboard({ state }: ReportDashboardProps) {
             
             <div className="flex flex-col items-end gap-2 text-right">
               <Badge 
-                className={`text-xl px-6 py-2 ${isInvest ? 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20' : 'bg-rose-500/10 text-rose-400 hover:bg-rose-500/20'}`}
+                className={`text-2xl px-8 py-3 tracking-wide font-heading font-bold shadow-xl ${isInvest ? 'bg-emerald-500 text-black shadow-emerald-500/25 hover:bg-emerald-400' : 'bg-rose-500 text-white shadow-rose-500/25 hover:bg-rose-400'}`}
               >
                 {decision.recommendation}
               </Badge>
-              <div className="text-sm text-zinc-500">
-                Confidence: <span className="text-white font-medium">{decision.confidence}%</span>
-              </div>
-              <div className="text-sm text-zinc-500">
-                Risk Level: <span className="text-white font-medium">{decision.riskLevel}</span>
+              <div className="flex gap-4 mt-2 bg-black/40 px-4 py-2 rounded-lg border border-white/5">
+                <div className="text-sm text-zinc-400">
+                  Confidence: <span className="text-white font-medium text-base ml-1">{decision.confidence}%</span>
+                </div>
+                <div className="w-px h-5 bg-white/10" />
+                <div className="text-sm text-zinc-400">
+                  Risk Level: <span className={`font-semibold text-base ml-1 ${decision.riskLevel === 'LOW' ? 'text-emerald-400' : decision.riskLevel === 'MEDIUM' ? 'text-amber-400' : 'text-rose-400'}`}>{decision.riskLevel}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -92,13 +96,19 @@ export function ReportDashboard({ state }: ReportDashboardProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Column 1 & 2: Main Content */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-8">
           
           {/* Financials */}
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 shadow-xl hover:border-white/10 transition-colors">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-xl">
-                <BarChart3 className="h-5 w-5 text-indigo-400" /> Financial Health (Score: {decision.financialScore}/100)
+              <CardTitle className="flex items-center gap-2 text-2xl font-heading font-medium">
+                <div className="p-2 bg-indigo-500/10 rounded-lg">
+                  <BarChart3 className="h-5 w-5 text-indigo-400" />
+                </div>
+                Financial Health
+                <Badge variant="outline" className="ml-auto text-base bg-indigo-500/10 text-indigo-300 border-indigo-500/20">
+                  Score: {decision.financialScore}/100
+                </Badge>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -137,10 +147,13 @@ export function ReportDashboard({ state }: ReportDashboardProps) {
 
           {/* SWOT Analysis */}
           {risks && (
-            <Card className="bg-zinc-900 border-zinc-800">
+            <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 shadow-xl hover:border-white/10 transition-colors">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-xl">
-                  <ShieldAlert className="h-5 w-5 text-indigo-400" /> SWOT Analysis & Risks
+                <CardTitle className="flex items-center gap-2 text-2xl font-heading font-medium">
+                  <div className="p-2 bg-rose-500/10 rounded-lg">
+                    <ShieldAlert className="h-5 w-5 text-rose-400" />
+                  </div>
+                  SWOT Analysis & Risks
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -203,13 +216,19 @@ export function ReportDashboard({ state }: ReportDashboardProps) {
         </div>
 
         {/* Column 3: Sidebar Content */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           
           {/* News Sentiment */}
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 shadow-xl hover:border-white/10 transition-colors">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Newspaper className="h-5 w-5 text-indigo-400" /> Recent News (Score: {decision.sentimentScore})
+              <CardTitle className="flex items-center gap-2 text-xl font-heading font-medium">
+                <div className="p-2 bg-sky-500/10 rounded-lg">
+                  <Newspaper className="h-5 w-5 text-sky-400" />
+                </div>
+                Recent News
+                <Badge variant="outline" className="ml-auto bg-sky-500/10 text-sky-300 border-sky-500/20">
+                  Sentiment: {decision.sentimentScore}
+                </Badge>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -244,9 +263,9 @@ export function ReportDashboard({ state }: ReportDashboardProps) {
 
           {/* Sources */}
           {sources && sources.length > 0 && (
-            <Card className="bg-zinc-900 border-zinc-800">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm text-zinc-400 uppercase tracking-wider">Data Sources</CardTitle>
+            <Card className="bg-zinc-900/40 backdrop-blur-xl border-white/5 shadow-xl hover:border-white/10 transition-colors">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-sm text-zinc-400 uppercase tracking-wider font-semibold">Data Sources</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
