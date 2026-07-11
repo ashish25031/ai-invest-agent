@@ -1,12 +1,12 @@
 "use client";
 
-import { DecisionState } from "../../types";
+import { FinalDecisionSchema } from "../../types";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { Target, Activity } from "lucide-react";
 
 interface RecommendationCardProps {
-  decision: z.infer<typeof DecisionState>;
+  decision: z.infer<typeof FinalDecisionSchema>;
 }
 
 export function RecommendationCard({ decision }: RecommendationCardProps) {
