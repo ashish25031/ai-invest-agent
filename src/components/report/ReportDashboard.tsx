@@ -26,14 +26,12 @@ export function ReportDashboard({ state }: ReportDashboardProps) {
       <CompanyOverview companyInfo={companyInfo} />
 
       {/* 1. Financials (KPIs & Table) */}
-      {financials && (
-        <section>
-          <h2 className="text-xl font-heading font-semibold text-white mb-6 flex items-center gap-2">
-            <Target className="w-5 h-5 text-primary" /> Financial Metrics
-          </h2>
-          <KpiCards financials={financials} />
-        </section>
-      )}
+      <section>
+        <h2 className="text-xl font-heading font-semibold text-white mb-6 flex items-center gap-2">
+          <Target className="w-5 h-5 text-primary" /> Financial Metrics
+        </h2>
+        <KpiCards financials={financials} />
+      </section>
 
       {/* 2. Charts (Radar & Donut) */}
       <section>
