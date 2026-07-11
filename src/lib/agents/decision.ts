@@ -78,10 +78,11 @@ export async function decisionAgent(state: AgentState): Promise<Partial<AgentSta
       Sentiment Score: ${scores.sentimentScore}/100
       
       Guidelines for your decision:
-      1. If the Financial Health Score is > 65 and risks are manageable, strongly lean towards INVEST.
-      2. If you choose PASS, the Risk Level MUST be HIGH or MEDIUM.
-      3. If you choose INVEST, the Risk Level MUST be LOW or MEDIUM.
-      4. Ensure your 'confidence' score (0-100) reflects how strongly the data supports your recommendation.
+      1. Be objective and balanced. If the Financial Health Score is > 60 and the company has solid revenue/margins, lean towards INVEST.
+      2. Do NOT default to HIGH risk. Reserve HIGH risk ONLY for companies with severe debt, negative profit margins, or catastrophic news.
+      3. For established, large-cap companies with stable financials, the risk level should generally be LOW or MEDIUM.
+      4. If you choose INVEST, the Risk Level MUST be LOW or MEDIUM.
+      5. Ensure your 'confidence' score (0-100) reflects how strongly the data supports your recommendation.
       
       Output the final decision strictly matching the required schema. Ensure the reasons clearly justify the decision.
     `;

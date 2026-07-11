@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
+import { Sidebar } from "../components/layout/Sidebar";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -27,7 +28,12 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} ${inter.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex font-sans bg-background">
+        <Sidebar />
+        <div className="flex-1 flex flex-col min-w-0">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
